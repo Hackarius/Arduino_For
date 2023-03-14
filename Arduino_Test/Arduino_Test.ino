@@ -1,4 +1,5 @@
-char inputName[15] = "No name !";
+const int nameSize = 15;
+char inputName[nameSize] = "No name !";
 
 /**
   * Serial waiting for read
@@ -23,12 +24,12 @@ void setup() {
 
   if (Serial.available() > 0) {
     uint8_t sizeRead = Serial.available();
-    Serial.readBytesUntil('\n', inputName, 15);
+    Serial.readBytesUntil('\n', inputName, nameSize);
 
-    if (sizeRead < 15) {
+    if (sizeRead < nameSize) {
       inputName[sizeRead - 1] = '\0';      
     } else {
-      inputName[14] = '\0';
+      inputName[nameSize - 1] = '\0';
     }
 
     Serial.print("\nName chosed is > ");
