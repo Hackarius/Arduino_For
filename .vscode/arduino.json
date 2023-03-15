@@ -1,5 +1,7 @@
 {
     "board": "arduino:avr:uno",
     "port": "COM3",
-    "sketch": "FeuTriColor\\FeuTriColor.ino"
+    "sketch": "src\\PontDiviseurTension\\PontDiviseurTension.ino",
+    "baudRate": 9600,
+    "output": "build\\"
 }
