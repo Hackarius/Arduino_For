@@ -1,7 +1,9 @@
-#define PIN_BUTTON (uint8_t)2
-#define PIN_GREEN (uint8_t)3
-#define PIN_YELLOW (uint8_t)5
-#define PIN_RED (uint8_t)6
+#define PIN_POT (uint8_t) A5
+
+#define PIN_BUTTON (uint8_t) 2
+#define PIN_GREEN (uint8_t) 3
+#define PIN_YELLOW (uint8_t) 5
+#define PIN_RED (uint8_t) 6
 
 #define WAIT_TIME 1000
 #define DELAY_LED 500
@@ -32,7 +34,7 @@ void loop() {
     Serial.println("LED activated");
   } else {
     Serial.println("Not activated");
-  }
 
-  delay(WAIT_TIME);
+    delay(WAIT_TIME);
+  }
 }
