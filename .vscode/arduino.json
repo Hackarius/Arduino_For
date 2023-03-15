@@ -1,7 +1,7 @@
 {
     "board": "arduino:avr:uno",
     "port": "COM3",
-    "sketch": "src\\LCD\\LCD.ino",
+    "sketch": "src\\LCD_i2c\\LCD_i2c.ino",
     "baudRate": 9600,
     "output": "build\\"
 }
