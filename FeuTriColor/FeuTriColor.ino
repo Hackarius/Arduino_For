@@ -6,6 +6,7 @@
 #define PIN_RED (uint8_t) 6
 
 #define MAX_VAL_POT 1024.0F
+#define MAX_VOLTAGE 5
 #define WAIT_TIME 1000
 #define DELAY_LED 500
 
@@ -16,14 +17,20 @@ void writeOnLed(uint8_t PIN) {
 }
 
 /**
-  * @param potentiometerValue
-  * @param vRef 
+  * Convert value from potentiometer in voltage
+  * @param potentiometerValue value read from the potentiometer
+  * @param vRef voltage reference in the board
   * @return float
   */
-float getPotentiometerRatio(uint16_t potentiometerValue, float vRef = 5) {
+float getPotentiometerRatio(uint16_t potentiometerValue, float vRef = MAX_VOLTAGE) {
   return vRef / MAX_VAL_POT * (float)potentiometerValue;
 }
 
+/**
+  * Read value from potentiometer
+  * Display value from potentiometer and value in voltage
+  * @return void
+  */
 void readPotentiometer() {
   int potentiometerValue = analogRead(PIN_POT);
   Serial.print("Value from potentiometer > ");
