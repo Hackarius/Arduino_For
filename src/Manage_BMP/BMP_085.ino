@@ -1,8 +1,6 @@
 #include <Arduino.h>
 #include <Adafruit_BMP085.h>
 
-#include "BMP_085.h"
-#include "TFT_Framework.h"
 #include "Config.h"
 
 #ifdef BMP_180

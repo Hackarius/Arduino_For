@@ -13,9 +13,9 @@
     // #define DUMMY_RTC
 
     #define SCREEN
-    #define TFT_1_8
+    #define ST7735
     // #define LCD_2_16
     // #define DUMMY_SCREEN
 
-    #include "Config_Advance.h";
+    #include "Config_Checker.h"
 #endif

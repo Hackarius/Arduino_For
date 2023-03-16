@@ -1,31 +1,10 @@
 #include <Arduino.h>
 #include <Adafruit_ST77XX.h>
 #include <Timelib.h>
-#include "TFT_Framework.h"
+
 #include "TFT_Positions.h"
 
 void setFloatValueInBox(uint8_t, uint8_t, uint8_t, uint8_t, float, uint8_t);
-
-/**
- * @def Setup the screen TFT
- * @param void
- * @return void
- */
-void screenSetup(void)
-{
-    tft.fillScreen(0x0);
-    tft.setCursor(34, 20);
-    tft.setTextSize(2);
-    tft.setTextColor(ST77XX_BLLM);
-    tft.print("Orsys");
-    tft.setCursor(5, 50);
-    tft.setTextSize(1);
-    tft.setTextColor(ST77XX_BLLM);
-    tft.setCursor(15, 135);
-    tft.print("Copyright 2023");
-    tft.setCursor(50, 150);
-    tft.print("Rev 0.2");
-}
 
 /**
  * @def Insert text at position

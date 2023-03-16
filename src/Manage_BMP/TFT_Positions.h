@@ -45,13 +45,13 @@
      * Define first A0 box parameter
     */
     #define BOX_A0_X    0
-    #define BOX_A0_Y    10
+    #define BOX_A0_Y    50
 
     /**
      * Define second A1 box parameter
     */
     #define BOX_A1_X    BOX_GENERIC_W
-    #define BOX_A1_Y    10
+    #define BOX_A1_Y    50
 
     /**
      * Define third A2 box parameter

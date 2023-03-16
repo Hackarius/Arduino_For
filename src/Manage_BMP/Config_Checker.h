@@ -32,12 +32,12 @@
     #endif
 
     // Define module for screen
-    #if defined(TFT_1_8) && !defined(SCREEN)
-        #undef TFT_1_8
+    #if defined(ST7735) && !defined(SCREEN)
+        #undef ST7735
         #define DUMMY_SCREEN
     #endif
 
-    #if defined(TFT_1_8) || defined(DUMMY_SCREEN)
+    #if defined(ST7735) || defined(DUMMY_SCREEN)
         #define SCREEN_MODULE
     #endif
 #endif
