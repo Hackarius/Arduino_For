@@ -7,7 +7,26 @@
 #define TFT_DC 9
 #define PI (float) 3.1415926F
 
+#define WAIT_CHARGE 100
+#define PAS_CHARGE 8
+#define SIZE_NORMAL_CHAR 6
+#define SIZE_BNORMAL_CHAR 12
+
+#define PIN_VOLTMETER A0
+
+#define R1 2000
+#define R2 560
+
+#define MAX_VOLTAGE 22.857F
+#define DEFAULT_VOLTAGE 5.0F
+#define RATIO_VOLTAGE (float) (MAX_VOLTAGE/DEFAULT_VOLTAGE)
+#define RATIO_ADC (float) (DEFAULT_VOLTAGE/1024.0F)
+
 Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
+
+float getResultVIn(uint16_t vAdc) {
+    return RATIO_ADC * vAdc * RATIO_VOLTAGE;
+}
 
 void writeText(char *text, uint8_t size, uint16_t color, int16_t posX, int16_t posY)
 {
@@ -18,26 +37,16 @@ void writeText(char *text, uint8_t size, uint16_t color, int16_t posX, int16_t p
   tft.print(text);
 }
 
-void testlines(uint16_t color) {
-  tft.fillScreen(ST77XX_BLACK);
-  for (int16_t x=0; x < tft.width(); x+=6) {
-    tft.drawLine(tft.width() / 2, tft.height() / 2, x, 0, color);
-    delay(0);
-  }
+int sizeOfScreenCenter() {
+  return tft.width() - (tft.width() / 5);
+}
 
-  for (int16_t y= 0; y < 0; y -=6) {
-    tft.drawLine(tft.width() / 2, tft.height() / 2, tft.width(), y, color);
-    delay(0);
-  }
+void chargingVoltmeter() {
+  tft.fillRoundRect(5, (tft.height() / 2 - 10) , (tft.width() - 10), 20, 5, ST77XX_WHITE);
 
-  for (int16_t x=tft.width(); x >= 0; x -=6) {
-    tft.drawLine(tft.width() / 2, tft.height() / 2, x, tft.height(), color);
-    delay(0);
-  }
-
-  for (int16_t y=0; y < tft.height(); y +=6) {
-    tft.drawLine(tft.width() / 2, tft.height() / 2, 0, y, color);
-    delay(0);
+  for (int i = 0; i < 10; i += 1) {
+    tft.fillRoundRect(5 + ((tft.width() / 10) * i), ( tft.height() / 2 - 9), (tft.width() / 10) - 1, 18, 5, ST77XX_GREEN);
+    delay(WAIT_CHARGE);
   }
 }
 
@@ -49,67 +58,45 @@ void setup(void)
   tft.initR(INITR_BLACKTAB);
 
   tft.fillScreen(ST77XX_WHITE);
-  char titleMessage[6] = "ORSYS";
-  writeText(titleMessage, 2, ST7735_BLACK, (tft.width() / 2) - ((strlen(titleMessage)*12) / 2), (tft.height() / 2) - 30);
+  char msgTtl[6] = "ORSYS";
+  writeText(msgTtl, 2, ST7735_BLACK, (tft.width() / 2) - ((strlen(msgTtl) * SIZE_BNORMAL_CHAR) / 2), (tft.height() / 2) - (tft.height() / 6));
 
-  char messageProject[15] = "Voltmeter test";
-  writeText(messageProject, 1, ST7735_BLACK, (tft.width() / 2) - ((strlen(messageProject)*6) / 2), (tft.height() / 2) + 20);
+  char msgPjt[15] = "Voltmeter test";
+  writeText(msgPjt, 1, ST7735_BLACK, (tft.width() / 2) - ((strlen(msgPjt) * SIZE_NORMAL_CHAR) / 2), (tft.height() / 2) + (tft.height() / 12));
 
-  char messageCopyright[15] = "Copyright 2023";
-  writeText(messageCopyright, 1, ST7735_BLACK, (tft.width() / 2) - ((strlen(messageCopyright)*6) / 2), (tft.height() / 2) + 40);
+  char msgCprt[15] = "Copyright 2023";
+  writeText(msgCprt, 1, ST7735_BLACK, (tft.width() / 2) - ((strlen(msgCprt) * SIZE_NORMAL_CHAR) / 2), (tft.height() - tft.height() / 8));
 
-  char messageRev[15] = "Rev v0.1";
-  writeText(messageRev, 1, ST7735_BLACK, (tft.width() / 2) - ((strlen(messageRev)*6) / 2), (tft.height() / 2) + 50);
+  char msgRev[15] = "Rev v0.1";
+  writeText(msgRev, 1, ST7735_BLACK, (tft.width() / 2) - ((strlen(msgRev) * SIZE_NORMAL_CHAR) / 2), (tft.height() - tft.height() / 14));
   delay(2000);
 
   tft.fillScreen(ST77XX_BLACK);
-  testlines(ST77XX_GREEN);
+  chargingVoltmeter();
   delay(1000);
 
   tft.fillScreen(ST77XX_BLACK);
+  char msgVolt[8] = "Tension";
+  writeText(msgVolt, 3, ST7735_RED, (tft.width() / 2) - ((strlen(msgVolt) * (SIZE_NORMAL_CHAR * 3)) / 2), (tft.height() / 20));
+
+  char msgPin[8] = "A0";
+  writeText(msgPin, 4, ST7735_BLUE, (tft.width() / 2) - ((strlen(msgPin) * (SIZE_NORMAL_CHAR * 4)) / 2), (tft.height() / 3));
   Serial.println("End of the show");
+
+  
 }
 
 void loop()
 {
-}
+  tft.fillRoundRect(10, 110, 120, 50, 8, ST77XX_WHITE);
 
-void tftPrintTest()
-{
-  tft.setTextWrap(false);
-  tft.fillScreen(ST77XX_BLACK);
-  tft.setCursor(0, 30);
-  tft.setTextColor(ST77XX_RED);
-  tft.setTextSize(1);
-  tft.println("Hello World!");
-  tft.setTextColor(ST77XX_YELLOW);
-  tft.setTextSize(2);
-  tft.println("Hello World!");
-  tft.setTextColor(ST77XX_GREEN);
+  tft.setCursor(15, 115);
+  tft.setTextColor(ST7735_ORANGE);
+  tft.setTextWrap(true);
   tft.setTextSize(3);
-  tft.println("Hello World!");
-  tft.setTextColor(ST77XX_BLUE);
-  tft.setTextSize(4);
-  tft.print(1234.567);
-  delay(1500);
-  tft.setCursor(0, 0);
-  tft.fillScreen(ST77XX_BLACK);
-  tft.setTextColor(ST77XX_WHITE);
-  tft.setTextSize(0);
-  tft.println("Hello World!");
-  tft.setTextSize(1);
-  tft.setTextColor(ST77XX_GREEN);
-  tft.print(PI, 6);
-  tft.println(" Want pi?");
-  tft.println(" ");
-  tft.print(8675309, HEX); // print 8,675,309 out in HEX!
-  tft.println(" Print HEX!");
-  tft.println(" ");
-  tft.setTextColor(ST77XX_WHITE);
-  tft.println("Sketch has been");
-  tft.println("running for: ");
-  tft.setTextColor(ST77XX_MAGENTA);
-  tft.print(millis() / 1000);
-  tft.setTextColor(ST77XX_WHITE);
-  tft.print(" seconds.");
+
+  float res = getResultVIn(analogRead(PIN_VOLTMETER));
+  tft.print(res);
+
+  delay(1000);
 }
