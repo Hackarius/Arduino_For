@@ -4,7 +4,8 @@
 
 #ifdef DUMMY_TEMP
 float readTemp()
-{
-    return 0.0F;
+{   
+    sensorsValues.Temperature = 0.0F
+    return sensorsValues.Temperature;
 }
 #endif

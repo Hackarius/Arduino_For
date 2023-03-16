@@ -11,6 +11,7 @@
 #include "BMP_085.h"
 
 #include "Config.h"
+#include "Structure.h"
 
 #define TFT_CS 10
 #define TFT_RST 8
@@ -19,7 +20,7 @@
 #define WAITING 1000
 
 Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
-Adafruit_BMP085 bmp;
+struct SensorsValues sensorsValues;
 
 void setup(void)
 {

@@ -6,6 +6,9 @@
 #include "Config.h"
 
 #ifdef BMP_180
+    #include "Structure.h"
+    Adafruit_BMP085 bmp;
+
     bool setupPressure(void)
     {
         return bmp.begin();
@@ -13,17 +16,15 @@
 
     float readPressure(void)
     {
-        float psrHP = 0.0F;
-        psrHP = bmp.readPressure() / 100.0F;
-        return psrHP;
+        sensorsValues.Pressure = bmp.readPressure() / 100.0F;
+        return sensorsValues.Pressure;
     }
 
     #ifdef BMP_180_TEMP
     float readTemp(void)
     {
-        float t0 = 0.0F;
-        t0 =  bmp.readTemperature();
-        return t0;
+        sensorsValues.Temperature =  bmp.readTemperature();
+        return sensorsValues.Temperature;
     }
     #endif
 #endif
