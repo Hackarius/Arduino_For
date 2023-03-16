@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include <Adafruit_ST77XX.h>
 #include <Timelib.h>
 
@@ -15,8 +14,7 @@ void setFloatValueInBox(uint8_t, uint8_t, uint8_t, uint8_t, float, uint8_t);
  * @param uint8_t (s) size for the text
  * @return void
  */
-void setText(uint8_t x, uint8_t y, const char *t, uint16_t c, uint8_t s)
-{
+void setText(uint8_t x, uint8_t y, const char *t, uint16_t c, uint8_t s) {
     tft.setCursor(x, y);
     tft.setTextColor(c);
     tft.setTextWrap(true);
@@ -33,8 +31,7 @@ void setText(uint8_t x, uint8_t y, const char *t, uint16_t c, uint8_t s)
  * @param char (*t) title of the box
  * @return void
  */
-void makeBoxWithTitle(uint8_t x, uint8_t y, uint8_t w, uint8_t h, const char *t)
-{
+void makeBoxWithTitle(uint8_t x, uint8_t y, uint8_t w, uint8_t h, const char *t) {
     setText(x + BOX_FROMREF_TITLE_X, y + BOX_FROMREF_TITLE_Y, t, BOX_TITLE_COLOR, BOX_TITLE_SIZE);
     makeBox(x, y, w, h);
     setFloatValueInBox(x, y, w, h, 0.0F, 2);
@@ -48,8 +45,7 @@ void makeBoxWithTitle(uint8_t x, uint8_t y, uint8_t w, uint8_t h, const char *t)
  * @param uint8_t (h) size of height
  * @return void
  */
-void makeBox(uint8_t x, uint8_t y, uint8_t w, uint8_t h)
-{
+void makeBox(uint8_t x, uint8_t y, uint8_t w, uint8_t h) {
     tft.fillRect(
         x + BOX_FROMREF_VALUE_RECT_X,
         y + BOX_FROMREF_VALUE_RECT_Y,
@@ -68,8 +64,7 @@ void makeBox(uint8_t x, uint8_t y, uint8_t w, uint8_t h)
  * @param uint8_t (p) precision after comma sign
  * @return void
  */
-void setFloatValueInBox(uint8_t x, uint8_t y, uint8_t w, uint8_t h, float v, uint8_t p)
-{
+void setFloatValueInBox(uint8_t x, uint8_t y, uint8_t w, uint8_t h, float v, uint8_t p) {
     char buffer[p + 4];
     makeBox(x, y, w, h);
     setText(x + BOX_FROMREF_VALUE_X, y + BOX_FROMREF_VALUE_Y, dtostrf(v, 2, p, buffer), BOX_VALUE_COLOR, BOX_VALUE_SIZE);
@@ -80,8 +75,7 @@ void setFloatValueInBox(uint8_t x, uint8_t y, uint8_t w, uint8_t h, float v, uin
  * @param void
  * @return void
  */
-void makeBand(void)
-{
+void makeBand(void) {
     tft.fillRect(0, 0, tft.width(), 10, ST77XX_BLLM);
     tft.fillRect(tft.width() / 2 - 31, 0, 62, 16, ST77XX_BLLM);
 }
@@ -91,8 +85,7 @@ void makeBand(void)
  * @param tmElements_t (tm) time struct object
  * @return void
  */
-void makeBandWithHour(tmElements_t tm)
-{
+void makeBandWithHour(tmElements_t tm) {
     makeBand();
     char buffer[11];
 

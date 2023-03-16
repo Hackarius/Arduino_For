@@ -1,5 +1,3 @@
-#include <Arduino.h>
-
 #include "Config.h"
 
 #ifdef ST7735
@@ -20,8 +18,7 @@
      * @param void
      * @return void
      */
-    void screenSetup(void)
-    {
+    void screenSetup(void) {
         tft.fillScreen(0x0);
         tft.setCursor(34, 20);
         tft.setTextSize(2);
@@ -36,8 +33,12 @@
         tft.print("Rev 0.2");
     }
 
-    void screenBoxBase() 
-    {
+    /**
+     * @def Add 2 box with value on screen
+     * @param void
+     * @return void
+    */
+    void screenBoxBase(void) {
         #ifdef TEMP_SENSOR
             makeBoxWithTitle(BOX_A0_X, BOX_A0_Y, BOX_FROMREF_VALUE_RECT_X, BOX_FROMREF_VALUE_RECT_Y, "T °C");
         #endif
@@ -47,8 +48,12 @@
         #endif
     }
 
-    void setupOutput(void)
-    {
+    /**
+     * @def Initialize output on screen
+     * @param void
+     * @return void
+    */
+    void setupOutput(void) {
         tft.initR(INITR_BLACKTAB);
         screenSetup();
 
@@ -56,6 +61,11 @@
         screenBoxBase();
     }
 
+    /**
+     * @def Display on screen into newly box created value of sensors
+     * @param void
+     * @return void
+    */
     void loopOutput(void) {
         #ifdef TEMP_SENSOR
             setFloatValueInBox(BOX_A0_X, BOX_A0_Y, BOX_GENERIC_W, BOX_GENERIC_H, sensorsValues.Temperature, 2);

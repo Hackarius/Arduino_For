@@ -1,6 +1,5 @@
 #ifndef _CONFIG_H_
 #define _CONFIG_H_
-
     #define BMP_180
     #define BMP_180_TEMP
     // #define DUMMY_TEMP

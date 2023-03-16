@@ -58,6 +58,4 @@
     */
     #define BOX_A2_X    0
     #define BOX_A2_Y    (TFT_HEIGHT / 2.0F)
-
-
 #endif
