@@ -9,6 +9,8 @@
 #define TFT_HEIGHT  160.0F
 #define TFT_BACKGROUND_COLOR ST77XX_BLACK
 
+#define NORMAL_CHAR_SIZE 8
+
 /**
  * Define position about box for function makeBox
 */
@@ -16,6 +18,8 @@
 #define BOX_FROMREF_TITLE_Y         6
 #define BOX_FROMREF_VALUE_RECT_X    2
 #define BOX_FROMREF_VALUE_RECT_Y    20
+#define BOX_FROMREF_VALUE_X         (BOX_FROMREF_VALUE_RECT_X + 2)
+#define BOX_FROMREF_VALUE_Y         (BOX_FROMREF_VALUE_RECT_Y + (BOX_VALUE_SIZE * NORMAL_CHAR_SIZE))
 #define BOX_TITLE_SIZE              1
 #define BOX_TITLE_COLOR             ST77XX_WHITE
 #define BOX_VALUE_SIZE              2

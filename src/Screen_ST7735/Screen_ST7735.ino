@@ -31,26 +31,6 @@ float getResultVIn(uint16_t vAdc)
   return RATIO_ADC * vAdc * RATIO_VOLTAGE;
 }
 
-void writeText(char *text, uint8_t size, uint16_t color, int16_t posX, int16_t posY)
-{
-  tft.setCursor(posX, posY);
-  tft.setTextColor(color);
-  tft.setTextWrap(true);
-  tft.setTextSize(size);
-  tft.print(text);
-}
-
-void chargingVoltmeter()
-{
-  tft.fillRoundRect(5, (tft.height() / 2 - 10), (tft.width() - 10), 20, 5, ST77XX_WHITE);
-
-  for (int i = 0; i < 10; i += 1)
-  {
-    tft.fillRoundRect(5 + ((tft.width() / 10) * i), (tft.height() / 2 - 9), (tft.width() / 10) - 1, 18, 5, ST77XX_GREEN);
-    delay(WAIT_CHARGE);
-  }
-}
-
 void setup(void)
 {
   Serial.begin(9600);
@@ -60,31 +40,7 @@ void setup(void)
 
   tft.fillScreen(TFT_BACKGROUND_COLOR);
   makeBoxWithTitle(BOX_A0_X, BOX_A0_Y, BOX_GENERIC_W, BOX_GENERIC_H, "V en A0");
-
-  // char msgTtl[6] = "ORSYS";
-  // writeText(msgTtl, 2, ST7735_BLACK, (tft.width() / 2) - ((strlen(msgTtl) * SIZE_BNORMAL_CHAR) / 2), (tft.height() / 2) - (tft.height() / 6));
-
-  // char msgPjt[15] = "Voltmeter test";
-  // writeText(msgPjt, 1, ST7735_BLACK, (tft.width() / 2) - ((strlen(msgPjt) * SIZE_NORMAL_CHAR) / 2), (tft.height() / 2) + (tft.height() / 12));
-
-  // char msgCprt[15] = "Copyright 2023";
-  // writeText(msgCprt, 1, ST7735_BLACK, (tft.width() / 2) - ((strlen(msgCprt) * SIZE_NORMAL_CHAR) / 2), (tft.height() - tft.height() / 8));
-
-  // char msgRev[15] = "Rev v0.1";
-  // writeText(msgRev, 1, ST7735_BLACK, (tft.width() / 2) - ((strlen(msgRev) * SIZE_NORMAL_CHAR) / 2), (tft.height() - tft.height() / 14));
-  // delay(2000);
-
-  // tft.fillScreen(ST77XX_BLACK);
-  // chargingVoltmeter();
-  // delay(1000);
-
-  // tft.fillScreen(ST77XX_BLACK);
-  // char msgVolt[8] = "Tension";
-  // writeText(msgVolt, 3, ST7735_RED, (tft.width() / 2) - ((strlen(msgVolt) * (SIZE_NORMAL_CHAR * 3)) / 2), (tft.height() / 20));
-
-  // char msgPin[8] = "A0";
-  // writeText(msgPin, 4, ST7735_BLUE, (tft.width() / 2) - ((strlen(msgPin) * (SIZE_NORMAL_CHAR * 4)) / 2), (tft.height() / 3));
-  // Serial.println("End of the show");
+  delay(1000);
 }
 
 void loop()
