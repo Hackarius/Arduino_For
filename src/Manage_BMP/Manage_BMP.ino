@@ -36,7 +36,7 @@ void setup(void)
   #ifdef SCREEN_MODULE
     screenSetup();
   #endif
-  
+
   delay(WAITING);
 
   #ifdef RTC_SENSOR

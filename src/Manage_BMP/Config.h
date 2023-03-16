@@ -16,4 +16,6 @@
     #define TFT_1_8
     // #define LCD_2_16
     // #define DUMMY_SCREEN
+
+    #include "Config_Advance.h";
 #endif
