@@ -7,11 +7,34 @@
 void setFloatValueInBox(uint8_t, uint8_t, uint8_t, uint8_t, float, uint8_t);
 
 /**
- * @param x position in x on width
- * @param y position in y on height
- * @param t title of the box
- * @param c color of the text
- * @param s size for the text
+ * @def Setup the screen TFT
+ * @param void
+ * @return void
+ */
+void screenSetup(void)
+{
+    tft.fillScreen(0x0);
+    tft.setCursor(34, 20);
+    tft.setTextSize(2);
+    tft.setTextColor(ST77XX_BLLM);
+    tft.print("Orsys");
+    tft.setCursor(5, 50);
+    tft.setTextSize(1);
+    tft.setTextColor(ST77XX_BLLM);
+    tft.setCursor(15, 135);
+    tft.print("Copyright 2023");
+    tft.setCursor(50, 150);
+    tft.print("Rev 0.2");
+}
+
+/**
+ * @def Insert text at position
+ * @param uint8_t (x) position in x on width
+ * @param uint8_t (y) position in y on height
+ * @param char (*t) title of the box
+ * @param uint16_t (c) color of the text
+ * @param uint8_t (s) size for the text
+ * @return void
  */
 void setText(uint8_t x, uint8_t y, const char *t, uint16_t c, uint8_t s)
 {
@@ -23,13 +46,13 @@ void setText(uint8_t x, uint8_t y, const char *t, uint16_t c, uint8_t s)
 }
 
 /**
- * @def create box and insert a title
- *
- * @param x position in x on width
- * @param y position in y on height
- * @param w size of width
- * @param h size of height
- * @param t title of the box
+ * @def Create box and insert a title
+ * @param uint8_t (x) position in x on width
+ * @param uint8_t (y) position in y on height
+ * @param uint8_t (w) size of width
+ * @param uint8_t (h) size of height
+ * @param char (*t) title of the box
+ * @return void
  */
 void makeBoxWithTitle(uint8_t x, uint8_t y, uint8_t w, uint8_t h, const char *t)
 {
@@ -39,12 +62,12 @@ void makeBoxWithTitle(uint8_t x, uint8_t y, uint8_t w, uint8_t h, const char *t)
 }
 
 /**
- * @def create box
- *
- * @param x position in x on width
- * @param y position in y on height
- * @param w size of width
- * @param h size of height
+ * @def Create simple box
+ * @param uint8_t (x) position in x on width
+ * @param uint8_t (y) position in y on height
+ * @param uint8_t (w) size of width
+ * @param uint8_t (h) size of height
+ * @return void
  */
 void makeBox(uint8_t x, uint8_t y, uint8_t w, uint8_t h)
 {
@@ -58,13 +81,13 @@ void makeBox(uint8_t x, uint8_t y, uint8_t w, uint8_t h)
 
 /**
  * @def Position correctly float value inside the box newly created
- *
- * @param x position in x on width
- * @param y position in y on height
- * @param w size of width
- * @param h size of height
- * @param v value in float to write
- * @param p precision after comma sign
+ * @param uint8_t (x) position in x on width
+ * @param uint8_t (y) position in y on height
+ * @param uint8_t (w) size of width
+ * @param uint8_t (h) size of height
+ * @param float (v) value in float to write
+ * @param uint8_t (p) precision after comma sign
+ * @return void
  */
 void setFloatValueInBox(uint8_t x, uint8_t y, uint8_t w, uint8_t h, float v, uint8_t p)
 {
@@ -74,19 +97,38 @@ void setFloatValueInBox(uint8_t x, uint8_t y, uint8_t w, uint8_t h, float v, uin
 }
 
 /**
- * Create band on top of the screen
+ * @def Create band on top of the screen
+ * @param void
+ * @return void
  */
-void makeBand()
+void makeBand(void)
 {
-    tft.fillRect(0, 0, tft.width(), 10, ST77XX_PINK);
-    tft.fillRect(tft.width() / 2 - 20, 0, 40, 10, ST77XX_PINK);
+    tft.fillRect(0, 0, tft.width(), 10, ST77XX_BLLM);
+    tft.fillRect(tft.width() / 2 - 31, 0, 62, 16, ST77XX_BLLM);
 }
 
-void writeHourTime(tmElements_t tm) {
+/**
+ * @def Function to write hour in specific case on display
+ * @param tmElements_t (tm) time struct object
+ * @return void
+ */
+void makeBandWithHour(tmElements_t tm)
+{
+    makeBand();
     char buffer[11];
 
-    tft.setCursor(2, 10);
+    tft.setCursor(2, 1);
     tft.setTextSize(1);
-    tft.setTextColor(ST77XX_WHITE);
-    
+    tft.setTextColor(ST77XX_BLACK);
+
+    sprintf(buffer, "%02d/%02d", tm.Day, tm.Month);
+    tft.print(buffer);
+    tft.setCursor(100, 1);
+    tft.print(tmYearToCalendar(tm.Year));
+
+    tft.setCursor(tft.width() / 2 - 30, 1);
+    tft.setTextSize(2);
+    sprintf(buffer, "%02d:%02d", tm.Hour, tm.Minute);
+    tft.print(buffer);
 }
+    

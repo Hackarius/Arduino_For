@@ -7,6 +7,7 @@
  * Define new color
 */
 #define ST77XX_PINK   0xEAEB
+#define ST77XX_BLLM   0x7FB8
 
 /**
  * Define default size of TFT 1.8 screen
