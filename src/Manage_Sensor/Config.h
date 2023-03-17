@@ -14,7 +14,7 @@
      * Sensor of Temperature
     */
     // #define SENSOR_BMP180_TEMP
-    // #define SENSOR_DS18B20
+    #define SENSOR_DS18B20
     // #define SENSOR_DHT11_TEMP
 
     /**
@@ -30,11 +30,13 @@
     /**
      * Screen
     */
-    #define SCREEN_ST77XX
-    #define SCREEN_ST7735
+    // #define SCREEN_ST77XX
+    // #define SCREEN_ST7735
     // #define LCD_2X16
 
-    // Sensor DUMMY
+    /**
+     * Sensor DUMMY
+    */ 
     // #define DUMMY_TEMP
     // #define DUMMY_PRESS
     // #define DUMMY_HUMIDITY
