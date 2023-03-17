@@ -24,23 +24,51 @@ void loop() {
     {
         sdata.humidity = 30;
         sdata.temperature = 22.87F;
-        sdata.message = "Hello Mister";
+        strcpy(sdata.message, "Hello Mister");
     }
 
     void emit() 
     {
-        U_Datas ud;
-        ud.datas = sdata;
+        while (!Serial.available()) { delay(50); }
+        char c = Serial.read();
 
-        for (int i = 0; i < sizeof(struct Datas); i++) {
-            Serial.write(ud.data8[i]);
+        if (c == 'o') {
+            U_Datas ud;
+            ud.datas = sdata;
+
+            for (int i = 0; i < sizeof(struct Datas); i++) {
+                Serial.write(ud.data8[i]);
+            }
+
+            delay(1000);
         }
+
+        Serial.flush();
     }
 #endif
 
 #ifdef RECIEVER
     void recieve()
     {
-        
+        // while(Serial.available()) { Serial.read(); }
+        // delay(1000);
+
+        Serial.write('o');
+
+        uint8_t i = 0;
+        U_Datas ud;
+        while(Serial.available() && i < sizeof(struct Datas)) {
+            ud.data8[i] = Serial.read();
+            i++;
+        }
+
+        Serial.print("Humidity > ");
+        Serial.println(ud.datas.humidity);
+
+        Serial.print("Temperature > ");
+        Serial.println(ud.datas.temperature);
+
+        Serial.print("Message > ");
+        Serial.println(ud.datas.message);
     }
 #endif

@@ -9,5 +9,5 @@ union U_Datas {
     uint8_t data8[sizeof(struct Datas)];
 };
 
-#define EMITTER
+// #define EMITTER
 #define RECIEVER
