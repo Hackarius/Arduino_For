@@ -12,7 +12,7 @@
         #endif
 
         #ifdef HUMIDITY_SENSOR
-            float       Humidity;
+            uint8_t       Humidity;
         #endif
     };
 #endif

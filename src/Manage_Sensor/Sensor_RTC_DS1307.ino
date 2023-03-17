@@ -14,7 +14,7 @@
         tmElements_t tm;
 
         if (RTC.read(tm)) {
-            char buffer[50];
+            char buffer[200];
             sprintf(buffer, "%04d%02d%02d - %02d:%02d", tmYearToCalendar(tm.Year), tm.Month, tm.Day, tm.Hour, tm.Minute);
             return buffer;
         } else  {

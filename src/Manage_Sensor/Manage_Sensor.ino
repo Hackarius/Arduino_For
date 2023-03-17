@@ -15,6 +15,18 @@ void setup(void)
         setupOutput();
     #endif
 
+    #ifdef HUMIDITY_SENSOR
+        setupHumidity();
+    #endif
+
+    #ifdef TEMP_SENSOR
+        setupTemp();
+    #endif
+
+    #ifdef PRESS_SENSOR
+        setupPressure();
+    #endif
+
     #ifdef SDCARD_MODULE
         setupCardReader();
         clearFile("sensor.log");
@@ -30,15 +42,16 @@ void loop()
     #endif
 
     #ifdef SDCARD_MODULE
-        #ifdef HUMIDITY_SENSOR
-            readHumidity();
-            char buffer[5];
-            sprintf(buffer, "%f", sensorsValues.Humidity);
-            writeFile("sensor.log", buffer);
+        #ifdef RTC_SENSOR
+            // Serial.println(getDateTime());
         #endif
 
-        #ifdef RTC_SENSOR
-            // Serial.println(sensorsValues.);
+        #ifdef HUMIDITY_SENSOR
+            readHumidity();
+
+            char buffer[10];
+            sprintf(buffer, "%d", sensorsValues.Humidity);
+            writeFile("sensor.log", buffer);
         #endif
         
         readFile("sensor.log");
