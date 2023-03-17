@@ -1,6 +1,6 @@
 #include "Config.h"
 
-#ifdef BMP_180
+#ifdef SENSOR_BMP180
     #include <Adafruit_BMP085.h>
     
     #include "Structure.h"
@@ -22,20 +22,18 @@
      * @param void
      * @return float
     */
-    #ifdef BMP_180_PRESS
     float readPressure(void)
     {
         sensorsValues.Pressure = bmp.readPressure() / 100.0F;
         return sensorsValues.Pressure;
     }
-    #endif
 
     /**
      * @def Read temp by sensor
      * @param void
      * @return float
     */
-    #ifdef BMP_180_TEMP
+    #ifdef SENSOR_BMP180_TEMP
     float readTemp(void)
     {
         sensorsValues.Temperature =  bmp.readTemperature();

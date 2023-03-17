@@ -10,5 +10,9 @@
         #ifdef TEMP_SENSOR
             float       Temperature;
         #endif
+
+        #ifdef HUMIDITY_SENSOR
+            float       Humidity;
+        #endif
     };
 #endif

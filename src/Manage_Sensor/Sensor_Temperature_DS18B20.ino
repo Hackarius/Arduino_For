@@ -1,8 +1,10 @@
 #include "Config.h"
 
-#ifdef DS18B20
+#ifdef SENSOR_DS18B20
     #include <OneWire.h>
     #include <DallasTemperature.h>
+
+    #include "Structure.h"
 
     #define ONE_WIRE_BUS 2
 
@@ -14,7 +16,8 @@
      * @param void
      * @return void
     */
-    void setupTempSensor(void) {
+    void setupTemp(void) 
+    {
         sensors.begin();
     }
 
@@ -23,12 +26,11 @@
      * @param void
      * @return float
     */
-    #ifdef DS18B20_TEMP
-    float readTemp(void) {
+    float readTemp(void)
+    {
         sensors.requestTemperatures();
 
         sensorsValues.Temperature = sensors.getTempCByIndex(0);
         return sensorsValues.Temperature;
     }
-    #endif
 #endif
