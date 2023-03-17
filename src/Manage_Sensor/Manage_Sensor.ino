@@ -17,6 +17,7 @@ void setup(void)
 
     #ifdef SDCARD_MODULE
         setupCardReader();
+        clearFile("sensor.log");
     #endif
 
     delay(WAITING);
@@ -26,6 +27,21 @@ void loop()
 {
     #ifdef SCREEN_MODULE
         loopOutput();
+    #endif
+
+    #ifdef SDCARD_MODULE
+        #ifdef HUMIDITY_SENSOR
+            readHumidity();
+            char buffer[5];
+            sprintf(buffer, "%f", sensorsValues.Humidity);
+            writeFile("sensor.log", buffer);
+        #endif
+
+        #ifdef RTC_SENSOR
+            // Serial.println(sensorsValues.);
+        #endif
+        
+        readFile("sensor.log");
     #endif
 
     delay(WAITING);
